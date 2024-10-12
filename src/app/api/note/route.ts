@@ -1,18 +1,21 @@
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/app/lib/prisma";
 
-const prisma = new PrismaClient();
-
-// Action to read
-export const GET = async (req: NextRequest, res: NextResponse) => {
-  const notes = await prisma.note.findMany({});
-
-  return NextResponse.json({
-    notes,
-  });
+// Action to fetch all notes
+export const GET = async (req: NextRequest) => {
+  try {
+    const notes = await prisma.note.findMany(); // Ensure this matches your schema
+    return NextResponse.json({ notes }); // Return notes in the expected format
+  } catch (error) {
+    console.error("Error fetching notes:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 };
 
-// Action to create
+// Action to create a new note
 export const POST = async (req: NextRequest) => {
   try {
     const { title, content } = await req.json();
@@ -31,7 +34,7 @@ export const POST = async (req: NextRequest) => {
   }
 };
 
-// Action to delete
+// Action to delete a note
 export const DELETE = async (req: NextRequest) => {
   try {
     const url = new URL(req.url).searchParams;
@@ -49,7 +52,6 @@ export const DELETE = async (req: NextRequest) => {
 
     return NextResponse.json({ message: "Note deleted successfully", note });
   } catch (error: unknown) {
-    // Check if the error is an instance of Error
     if (error instanceof Error) {
       console.error("Delete error:", error.message);
       return NextResponse.json(
@@ -62,7 +64,6 @@ export const DELETE = async (req: NextRequest) => {
         }
       );
     } else {
-      // Handle any other unknown errors
       console.error("Unknown error:", error);
       return NextResponse.json(
         {
@@ -76,22 +77,27 @@ export const DELETE = async (req: NextRequest) => {
   }
 };
 
-// Action to update or edit
+// Action to update or edit a note
 export const PUT = async (req: NextRequest) => {
-  const { title, content, id } = await req.json();
+  try {
+    const { title, content, id } = await req.json();
 
-  const note = await prisma.note.update({
-    where: {
-      id: Number(id),
-    },
+    const note = await prisma.note.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        title,
+        content,
+      },
+    });
 
-    data: {
-      title,
-      content,
-    },
-  });
-
-  return NextResponse.json({
-    note,
-  });
+    return NextResponse.json({ note });
+  } catch (error) {
+    console.error("Update error:", error);
+    return NextResponse.json(
+      { message: "Failed to update note" },
+      { status: 500 }
+    );
+  }
 };

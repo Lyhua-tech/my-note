@@ -8,9 +8,9 @@ const Page = ({ params }: { params: { id: string } }) => {
   const id = params.id;
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [status, setStatus] = useState("todo");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -26,6 +26,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         title,
         content,
         id,
+        status,
       }),
     })
       .then((res) => {
@@ -41,10 +42,9 @@ const Page = ({ params }: { params: { id: string } }) => {
   };
 
   useEffect(() => {
-    console.log("Page params:", params); // Check if the correct ID is being passed
+    console.log("Page params:", params);
     getData();
   }, []);
-  
 
   const getData = async () => {
     try {

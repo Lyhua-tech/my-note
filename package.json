@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.5.1",
     "@prisma/client": "^5.20.0",
     "mysql2": "^3.11.3",
     "next": "14.2.15",
