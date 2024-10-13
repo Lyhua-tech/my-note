@@ -46,7 +46,7 @@ export default function Item({ note }: Props) {
         return;
       }
 
-      setStatus(newStatus); // Update the local state with the new status
+      setStatus(newStatus);
     } catch (error) {
       console.error("Error updating note status:", error);
     }
@@ -69,10 +69,11 @@ export default function Item({ note }: Props) {
   };
 
   return (
-    <div className="border-2 border-zinc-200 p-3 rounded-md">
+    <div className="border-2 border-zinc-200 p-3 rounded-md bg-neutral-900 w-3/4">
       <select
         value={status}
-        onChange={(e) => handleUpdateStatus(e.target.value)} // Trigger update on change
+        onChange={(e) => handleUpdateStatus(e.target.value)}
+        className=" border-zinc-200 border rounded-md px-3 bg-zinc-900"
       >
         <option value="todo">Todo</option>
         <option value="doing">Doing</option>

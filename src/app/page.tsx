@@ -45,7 +45,7 @@ const Page = async () => {
       <div className="flex space-x-5 mt-3">
         <section>
           <p>Todo</p>
-          <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 max-w-[400]">
+          <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[800] bg-slate-800 ">
             {todoNotes.length > 0 ? (
               todoNotes
                 // .sort(
