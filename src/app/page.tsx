@@ -49,14 +49,14 @@ const Page = async () => {
     <div className="w-[1200px] mx-auto py-20">
       <Link
         href={"/create"}
-        className="px-3 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-md text-white"
+        className="px-3 py-2 bg-zinc-900 hover:bg-neutral-100 rounded-md text-white"
       >
         Create
       </Link>
       <div className="flex space-x-5 mt-3">
         <section>
-          <p>Todo</p>
-          <section className="w-[400px] bg-zinc-800 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
+          <p className="text-xl font-semibold text-neutral-200">Todo</p>
+          <section className="w-[400px] bg-neutral-100 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
             <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[300px] h-[200px]">
               {todoNotes.length > 0 ? (
                 todoNotes
@@ -72,8 +72,8 @@ const Page = async () => {
           </section>
         </section>
         <section>
-          <p>Doing</p>
-          <section className="w-[400px] bg-zinc-800 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
+          <p className="text-xl font-semibold text-neutral-200">Doing</p>
+          <section className="w-[400px] bg-neutral-100 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
             <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[300px] h-[200px]">
               {doingNotes.length > 0 ? (
                 doingNotes
@@ -89,8 +89,8 @@ const Page = async () => {
           </section>
         </section>
         <section>
-          <p>Done</p>
-          <section className="w-[400px] bg-zinc-800 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
+          <p className="text-xl font-semibold text-neutral-200">Done</p>
+          <section className="w-[400px] bg-neutral-100 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
             <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[300px] h-[200px]">
               {doneNotes.length > 0 ? (
                 doneNotes

@@ -71,11 +71,11 @@ export default function Item({ note }: Props) {
   };
 
   return (
-    <div className="border-2 border-zinc-200 p-3 rounded-md bg-neutral-900 h-[200px]  ">
+    <div className="border-2 border-zinc-200 p-3 rounded-md h-[200px]  ">
       <select
         value={status}
         onChange={(e) => handleUpdateStatus(e.target.value)}
-        className=" border-zinc-200 border rounded-md px-3 bg-zinc-900"
+        className=" border-zinc-200 border rounded-md px-3 "
       >
         <option value="todo">Todo</option>
         <option value="doing">Doing</option>
@@ -83,18 +83,15 @@ export default function Item({ note }: Props) {
       </select>
       <h2 className="mb-2">ID: {note?.id}</h2>
       <h1 className="text-xl font-semibold">{note?.title}</h1>
-      <p>{note?.content}</p>
+      <p className="truncate">{note?.content}</p>
       <div className="flex justify-end gap-3 mt-4 text-sm">
         <Button
-          // asChild
-          variant="main"
           className="font-semibold border-zinc-200 border rounded-md px-3"
           onClick={() => router.push(`/update/${note?.id}`)}
         >
           Update
         </Button>
         <Button
-          variant="favorite"
           className="font-semibold  rounded-md px-3"
           onClick={() => handleDelete(note?.id)}
         >
