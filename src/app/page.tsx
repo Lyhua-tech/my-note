@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Item from "./item";
 
 const getPosts = async () => {
@@ -25,6 +24,18 @@ const getPosts = async () => {
 
 const Page = async () => {
   const notes = await getPosts();
+  // const [status, setStatus] = useState<string>(notes?.status || "todo");
+
+  // useEffect(() => {
+  //   const fetchNotes = async () => {
+  //     try {
+  //       const response = await fetch(`/api/note?status=${status}`);
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //     } catch (error) {}
+  //   };
+  // });
 
   if (!notes) {
     return <p>Error fetching notes.</p>;
@@ -45,48 +56,54 @@ const Page = async () => {
       <div className="flex space-x-5 mt-3">
         <section>
           <p>Todo</p>
-          <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[800] bg-slate-800 ">
-            {todoNotes.length > 0 ? (
-              todoNotes
-                // .sort(
-                //   (a: any, b: any) =>
-                //     new Date(b.createdAt) - new Date(a.createdAt)
-                // ) // Sort by created date
-                .map((note: any) => <Item key={note.id} note={note} />) // Use note.id as the key
-            ) : (
-              <p>No Todo notes available.</p>
-            )}
-          </div>
+          <section className="w-[400px] bg-zinc-800 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
+            <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[300px] h-[200px]">
+              {todoNotes.length > 0 ? (
+                todoNotes
+                  // .sort(
+                  //   (a: any, b: any) =>
+                  //     new Date(b.createdAt) - new Date(a.createdAt)
+                  // ) // Sort by created date
+                  .map((note: any) => <Item key={note.id} note={note} />) // Use note.id as the key
+              ) : (
+                <p>No Todo notes available.</p>
+              )}
+            </div>
+          </section>
         </section>
         <section>
           <p>Doing</p>
-          <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 max-w-[400]">
-            {doingNotes.length > 0 ? (
-              doingNotes
-                // .sort(
-                //   (a: any, b: any) =>
-                //     new Date(b.createdAt) - new Date(a.createdAt)
-                // ) // Sort by created date
-                .map((note: any) => <Item key={note.id} note={note} />) // Use note.id as the key
-            ) : (
-              <p>No Doing notes available.</p>
-            )}
-          </div>
+          <section className="w-[400px] bg-zinc-800 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
+            <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[300px] h-[200px]">
+              {doingNotes.length > 0 ? (
+                doingNotes
+                  // .sort(
+                  //   (a: any, b: any) =>
+                  //     new Date(b.createdAt) - new Date(a.createdAt)
+                  // ) // Sort by created date
+                  .map((note: any) => <Item key={note.id} note={note} />) // Use note.id as the key
+              ) : (
+                <p>No Doing notes available.</p>
+              )}
+            </div>
+          </section>
         </section>
         <section>
           <p>Done</p>
-          <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 max-w-[400]">
-            {doneNotes.length > 0 ? (
-              doneNotes
-                // .sort(
-                //   (a: any, b: any) =>
-                //     new Date(b.createdAt) - new Date(a.createdAt)
-                // ) // Sort by created date
-                .map((note: any) => <Item key={note.id} note={note} />) // Use note.id as the key
-            ) : (
-              <p>No Done notes available.</p>
-            )}
-          </div>
+          <section className="w-[400px] bg-zinc-800 h-screen flex justify-center border-2 border-neutral-300 rounded-md mt-3">
+            <div className="grid grid-cols-1 gap-5 mt-8 border-zinc-200 w-[300px] h-[200px]">
+              {doneNotes.length > 0 ? (
+                doneNotes
+                  // .sort(
+                  //   (a: any, b: any) =>
+                  //     new Date(b.createdAt) - new Date(a.createdAt)
+                  // ) // Sort by created date
+                  .map((note: any) => <Item key={note.id} note={note} />) // Use note.id as the key
+              ) : (
+                <p>No Done notes available.</p>
+              )}
+            </div>
+          </section>
         </section>
       </div>
     </div>

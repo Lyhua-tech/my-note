@@ -1,5 +1,6 @@
 "use client";
 
+import { LeftOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -68,28 +69,41 @@ const Page = ({ params }: { params: { id: string } }) => {
   };
 
   return (
-    <form
-      className="w-[500px] mx-auto pt-20 flex flex-col gap-2"
-      onSubmit={handleSubmit}
-    >
-      <input
-        type="text"
-        placeholder="Input your title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="w-full border p-2 rounded-md"
-      />
-      <textarea
-        rows={10}
-        placeholder="Input your content"
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
-        className="w-full border p-2 rounded-md"
-      />
-      <button disabled={isLoading}>
-        {isLoading ? "Loading ..." : "Update"}
+    <div className="w-[500px] mx-auto space-y-2 pt-20">
+      <button
+        onClick={() => router.push("/")}
+        className="px-4 py-1 bg-zinc-900 hover:bg-zinc-800 rounded-md text-white"
+      >
+        <LeftOutlined
+          style={{ fontSize: "20px", color: "white", textAlign: "center" }}
+        />
       </button>
-    </form>
+      <form
+        className="w-[500px] mx-auto pt-20 flex flex-col gap-2"
+        onSubmit={handleSubmit}
+      >
+        <input
+          type="text"
+          placeholder="Input your title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="w-full border p-2 rounded-md text-neutral-900 text-xl"
+        />
+        <textarea
+          rows={10}
+          placeholder="Input your content"
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          className="w-full border p-2 rounded-md text-neutral-900 text-lg "
+        />
+        <button
+          disabled={isLoading}
+          className="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 rounded-md text-white text-lg"
+        >
+          {isLoading ? "Loading ..." : "Update"}
+        </button>
+      </form>
+    </div>
   );
 };
 

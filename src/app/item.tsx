@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Note } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   note: Note;
@@ -11,23 +12,6 @@ interface Props {
 export default function Item({ note }: Props) {
   const router = useRouter();
   const [status, setStatus] = useState(note?.status || "todo");
-
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const response = await fetch(`/api/note?status=${status}`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching notes:", error);
-      }
-    };
-    console.log(status);
-    fetchNotes();
-  }, [status]);
 
   // Function to update the note status
   const handleUpdateStatus = async (newStatus: string) => {
@@ -47,10 +31,28 @@ export default function Item({ note }: Props) {
       }
 
       setStatus(newStatus);
+      router.refresh();
     } catch (error) {
       console.error("Error updating note status:", error);
     }
   };
+
+  // useEffect(() => {
+  //   const fetchNotes = async () => {
+  //     try {
+  //       const response = await fetch(`/api/note?status=${status}`);
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! status: ${response.status}`);
+  //       }
+  //       const data = await response.json();
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.error("Error fetching notes:", error);
+  //     }
+  //   };
+  //   console.log(status);
+  //   fetchNotes();
+  // }, [status, handleUpdateStatus]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -69,7 +71,7 @@ export default function Item({ note }: Props) {
   };
 
   return (
-    <div className="border-2 border-zinc-200 p-3 rounded-md bg-neutral-900 w-3/4">
+    <div className="border-2 border-zinc-200 p-3 rounded-md bg-neutral-900 h-[200px]  ">
       <select
         value={status}
         onChange={(e) => handleUpdateStatus(e.target.value)}
@@ -83,18 +85,21 @@ export default function Item({ note }: Props) {
       <h1 className="text-xl font-semibold">{note?.title}</h1>
       <p>{note?.content}</p>
       <div className="flex justify-end gap-3 mt-4 text-sm">
-        <button
+        <Button
+          // asChild
+          variant="main"
           className="font-semibold border-zinc-200 border rounded-md px-3"
           onClick={() => router.push(`/update/${note?.id}`)}
         >
           Update
-        </button>
-        <button
-          className="font-semibold text-red-500 border-zinc-200 border rounded-md px-3"
+        </Button>
+        <Button
+          variant="favorite"
+          className="font-semibold  rounded-md px-3"
           onClick={() => handleDelete(note?.id)}
         >
           Delete
-        </button>
+        </Button>
       </div>
     </div>
   );
