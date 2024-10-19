@@ -86,12 +86,13 @@ export default function Item({ note }: Props) {
       <p className="truncate">{note?.content}</p>
       <div className="flex justify-end gap-3 mt-4 text-sm">
         <Button
-          className="font-semibold border-zinc-200 border rounded-md px-3"
+          className="font-semibold border-zinc-200 border rounded-md px-3 "
           onClick={() => router.push(`/update/${note?.id}`)}
         >
           Update
         </Button>
         <Button
+          variant="main"
           className="font-semibold  rounded-md px-3"
           onClick={() => handleDelete(note?.id)}
         >
