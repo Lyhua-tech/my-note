@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import { Note } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { CircleX, Settings2 } from "lucide-react";
 
 interface Props {
   note: Note;
@@ -72,31 +74,40 @@ export default function Item({ note }: Props) {
 
   return (
     <div className="border-2 border-zinc-200 p-3 rounded-md h-[200px]  ">
-      <select
-        value={status}
-        onChange={(e) => handleUpdateStatus(e.target.value)}
-        className=" border-zinc-200 border rounded-md px-3 "
-      >
-        <option value="todo">Todo</option>
-        <option value="doing">Doing</option>
-        <option value="done">Done</option>
-      </select>
-      <h2 className="mb-2">ID: {note?.id}</h2>
+      <div className="flex justify-between">
+        <select
+          value={status}
+          onChange={(e) => handleUpdateStatus(e.target.value)}
+          className=" border-zinc-200 border rounded-md px-3 "
+        >
+          <option value="todo">Todo</option>
+          <option value="doing">Doing</option>
+          <option value="done">Done</option>
+        </select>
+        <Badge
+          variant="outline"
+          className="text-green-500 bg-neutral-900 py-1 px-3"
+        >
+          {status}
+        </Badge>
+      </div>
+      {/* <h2 className="mb-2">ID: {note?.id}</h2> */}
       <h1 className="text-xl font-semibold">{note?.title}</h1>
       <p className="truncate">{note?.content}</p>
-      <div className="flex justify-end gap-3 mt-4 text-sm">
+
+      <div className="flex justify-end gap-3 mt-4 ">
         <Button
           className="font-semibold border-zinc-200 border rounded-md px-3 "
           onClick={() => router.push(`/update/${note?.id}`)}
         >
-          Update
+          <Settings2 className="size-5" />
         </Button>
         <Button
           variant="main"
           className="font-semibold  rounded-md px-3"
           onClick={() => handleDelete(note?.id)}
         >
-          Delete
+          <CircleX />
         </Button>
       </div>
     </div>
